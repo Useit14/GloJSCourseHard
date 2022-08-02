@@ -1,54 +1,69 @@
-let lang = prompt("Введите язык", "ru");
+"use strict";
+let str = prompt(
+  "Введите строку",
+  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis impedit accusantium nostrum maiores amet incidunt consectetur quibusdam sequi aliquid rem minima nesciunt consequuntur at voluptates veniam itaque, suscipit debitis adipisci?"
+);
 
-const daysRu = [
-  "Понедельник",
-  "Вторник",
-  "Среда",
-  "Четверг",
-  "Пятница",
-  "Суббота",
-  "Воскресенье",
-];
-const daysEng = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday ",
-  "Friday ",
-  "Saturday",
-  "Sunday ",
-];
+function toOverflow(str) {
+  function getStr(str) {
+    if (str / 2) {
+      alert("Введите строку!");
+      let str = prompt(
+        "Введите строку",
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis impedit accusantium nostrum maiores amet incidunt consectetur quibusdam sequi aliquid rem minima nesciunt consequuntur at voluptates veniam itaque, suscipit debitis adipisci?"
+      );
+      toOverflow(str);
+    } else {
+      return str;
+    }
+  }
 
-if (lang == "ru") {
-  daysRu.forEach((element) => {
-    console.log(element);
-  });
-} else if (lang == "en") {
-  daysEng.forEach((element) => {
-    console.log(element);
-  });
+  function toOverflowStart(str) {
+    let result = "";
+    let i = 0;
+    loop: for (let index = 0; index < str.length; index++) {
+      const element = str[index];
+      while (element == " ") {
+        continue loop;
+      }
+      i = index;
+      break;
+    }
+    for (let index = i; index < str.length; index++) {
+      const element = str[index];
+      result += element;
+    }
+    return result;
+  }
+
+  function toOverflowEnd(str) {
+    let result = "";
+    let i = 0;
+    loop: for (let index = str.length; index > 0; index--) {
+      const element = str[index - 1];
+      while (element == " ") {
+        continue loop;
+      }
+      i = index;
+      break;
+    }
+    for (let index = i; index > 0; index--) {
+      const element = str[index - 1];
+      result = element + result;
+    }
+    return result;
+  }
+
+  function toOverflowStr(str) {
+    return str.substring(0, 30) + "...";
+  }
+
+  let string = getStr(str);
+  let strOverflow = toOverflowEnd(toOverflowStart(string));
+  if (strOverflow.length > 30) {
+    return toOverflowStr(strOverflow);
+  } else {
+    return strOverflow;
+  }
 }
-
-switch (lang) {
-  case "ru":
-    daysRu.forEach((element) => {
-      console.log(element);
-    });
-    break;
-  case "en":
-    daysEng.forEach((element) => {
-      console.log(element);
-    });
-    break;
-}
-
-const days = [daysRu, daysEng];
-lang == "ru" ? console.log(days[0].join(",")) : console.log(days[1].join(","));
-
-const namePerson = prompt("Введите имя", "Артем");
-
-namePerson === "Артем"
-  ? console.log("Директор")
-  : namePerson == "Александр"
-  ? console.log("Преподователь")
-  : console.log("Студент");
+console.log(toOverflow(str));
