@@ -19,11 +19,11 @@ const daysEng = [
   "Sunday ",
 ];
 
-if (lang == "ru") {
+if (lang === "ru") {
   daysRu.forEach((element) => {
     console.log(element);
   });
-} else if (lang == "en") {
+} else if (lang === "en") {
   daysEng.forEach((element) => {
     console.log(element);
   });
@@ -43,12 +43,12 @@ switch (lang) {
 }
 
 const days = [daysRu, daysEng];
-lang == "ru" ? console.log(days[0].join(",")) : console.log(days[1].join(","));
+lang === "ru" ? console.log(days[0].join(",")) : console.log(days[1].join(","));
 
 const namePerson = prompt("Введите имя", "Артем");
 
 namePerson === "Артем"
   ? console.log("Директор")
-  : namePerson == "Александр"
+  : namePerson === "Александр"
   ? console.log("Преподователь")
   : console.log("Студент");
