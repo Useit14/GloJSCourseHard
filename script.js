@@ -6,16 +6,15 @@ let str = prompt(
 
 function toOverflow(str) {
   function getStr(str) {
-    if (str / 2) {
+    let baseString = str;
+    while (baseString / 2) {
       alert("Введите строку!");
-      let str = prompt(
+      baseString = prompt(
         "Введите строку",
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis impedit accusantium nostrum maiores amet incidunt consectetur quibusdam sequi aliquid rem minima nesciunt consequuntur at voluptates veniam itaque, suscipit debitis adipisci?"
       );
-      toOverflow(str);
-    } else {
-      return str;
     }
+    return baseString;
   }
 
   function toOverflowStart(str) {
