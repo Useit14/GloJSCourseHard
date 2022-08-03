@@ -1,68 +1,54 @@
-"use strict";
-let str = prompt(
-  "Введите строку",
-  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis impedit accusantium nostrum maiores amet incidunt consectetur quibusdam sequi aliquid rem minima nesciunt consequuntur at voluptates veniam itaque, suscipit debitis adipisci?"
-);
+let num;
 
-function toOverflow(str) {
-  function getStr(str) {
-    let baseString = str;
-    while (baseString / 2) {
-      alert("Введите строку!");
-      baseString = prompt(
-        "Введите строку",
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis impedit accusantium nostrum maiores amet incidunt consectetur quibusdam sequi aliquid rem minima nesciunt consequuntur at voluptates veniam itaque, suscipit debitis adipisci?"
-      );
-    }
-    return baseString;
-  }
-
-  function toOverflowStart(str) {
-    let result = "";
-    let i = 0;
-    loop: for (let index = 0; index < str.length; index++) {
-      const element = str[index];
-      while (element == " ") {
-        continue loop;
-      }
-      i = index;
-      break;
-    }
-    for (let index = i; index < str.length; index++) {
-      const element = str[index];
-      result += element;
-    }
-    return result;
-  }
-
-  function toOverflowEnd(str) {
-    let result = "";
-    let i = 0;
-    loop: for (let index = str.length; index > 0; index--) {
-      const element = str[index - 1];
-      while (element == " ") {
-        continue loop;
-      }
-      i = index;
-      break;
-    }
-    for (let index = i; index > 0; index--) {
-      const element = str[index - 1];
-      result = element + result;
-    }
-    return result;
-  }
-
-  function toOverflowStr(str) {
-    return str.substring(0, 30) + "...";
-  }
-
-  let string = getStr(str);
-  let strOverflow = toOverflowEnd(toOverflowStart(string));
-  if (strOverflow.length > 30) {
-    return toOverflowStr(strOverflow);
+const isSpace = function (num) {
+  let array = num.split(" ");
+  if (array.length > 1) {
+    return true;
   } else {
-    return strOverflow;
+    return false;
+  }
+};
+
+const isNumber = function (num) {
+  if (isSpace(num)) {
+    return false;
+  }
+  return !isNaN(num) && isFinite(num);
+};
+
+do {
+  num = prompt("Введите число", "  54");
+} while (num == null || !isNumber(num) || num.length == 0);
+
+console.log(num, typeof num);
+
+let arr = [22, 43, 53, 23, 42, 16, 73];
+for (let index = 0; index < arr.length; index++) {
+  const element = arr[index].toString();
+  if (element[0] == 2 || element[0] == 4) {
+    console.log(element);
   }
 }
-console.log(toOverflow(str));
+
+let numbers = [];
+let simpleNumbers = [];
+
+for (let index = 1; index < 101; index++) {
+  numbers.push(index);
+}
+
+for (let index = 0; index < numbers.length; index++) {
+  let tempArray = [];
+  let count = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    if (numbers[index] % numbers[i] == 0) {
+      tempArray.push("Делитель " + numbers[i]);
+    }
+  }
+  if (tempArray.length == 2) {
+    tempArray.push("Число " + numbers[index]);
+    simpleNumbers.push(tempArray);
+  }
+  tempArray = [];
+}
+console.log(simpleNumbers);
