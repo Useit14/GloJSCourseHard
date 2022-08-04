@@ -1,24 +1,17 @@
 let num;
 
-const isSpace = function (num) {
-  let array = num.split(" ");
-  if (array.length > 1) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
 const isNumber = function (num) {
-  if (isSpace(num)) {
-    return false;
-  }
   return !isNaN(num) && isFinite(num);
 };
 
 do {
   num = prompt("Введите число", "  54");
-} while (num == null || !isNumber(num) || num.length == 0);
+  if (num == null) {
+    num = 0;
+    break;
+  }
+  num = parseFloat(num);
+} while (!isNumber(num) || num.length == 0);
 
 console.log(num, typeof num);
 
