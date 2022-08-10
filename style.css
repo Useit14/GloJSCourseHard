@@ -1,0 +1,16 @@
+#main {
+    display: flex;
+    flex-direction: column;
+}
+
+#main div {
+    background-color: lightblue;
+    text-align: center;
+    min-height: 2rem;
+    border-bottom: 1px solid black;
+}
+
+#main div:hover {
+    background-color: rgba(173, 216, 230, 0.5);
+    cursor: pointer;
+}
