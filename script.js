@@ -24,19 +24,58 @@ const month = [
 ];
 
 const root = document.getElementById("main");
-const date = new Date();
+
 const element1 = document.createElement("div");
 const element2 = document.createElement("div");
 
-const getHourWord = () => {
-  const hours = new Date().getHours();
-  if (hours == 1) {
-    return "час";
-  } else if ([2, 3, 4].includes(parseInt(hours.toString()[1]))) {
-    return "часа";
+const getDateWord = () => {
+  const dateWord = {};
+  const date = new Date();
+  const hours = date.getHours().toString();
+  const minutes = date.getMinutes().toString();
+  const seconds = date.getSeconds().toString();
+
+  if (["11", "12", "13", "14"].includes(hours)) {
+    dateWord.hours = "часов";
+  } else if (hours.substring(hours.length - 1, hours.length) == "1") {
+    dateWord.hours = "час";
+  } else if (
+    ["2", "3", "4"].includes(hours.substring(hours.length - 1, hours.length))
+  ) {
+    dateWord.hours = "часа";
   } else {
-    return "часов";
+    dateWord.hours = "часов";
   }
+
+  if (["11", "12", "13", "14"].includes(minutes)) {
+    dateWord.minutes = "минут";
+  } else if (minutes.substring(minutes.length - 1, minutes.length) == "1") {
+    dateWord.minutes = "минута";
+  } else if (
+    ["2", "3", "4"].includes(
+      minutes.substring(minutes.length - 1, minutes.length)
+    )
+  ) {
+    dateWord.minutes = "минуты";
+  } else {
+    dateWord.minutes = "минут";
+  }
+
+  if (["11", "12", "13", "14"].includes(seconds)) {
+    dateWord.seconds = "секунд";
+  } else if (seconds.substring(seconds.length - 1, seconds.length) == "1") {
+    dateWord.seconds = "сенунда";
+  } else if (
+    ["2", "3", "4"].includes(
+      seconds.substring(seconds.length - 1, seconds.length)
+    )
+  ) {
+    dateWord.seconds = "секунды";
+  } else {
+    dateWord.seconds = "секунд";
+  }
+
+  return dateWord;
 };
 
 const addZero = (date) => {
@@ -60,15 +99,22 @@ const addZero = (date) => {
 root.append(element1);
 root.append(element2);
 
-element1.textContent = `Сегодня ${week[date.getDay() - 1]}, ${date.getDate()} ${
-  month[date.getMonth()]
-} ${date.getFullYear()} года, ${date.getHours()} ${getHourWord()} ${date.getMinutes()} минут ${date.getSeconds()} секунды `;
-
 setInterval(() => {
-  const date1 = new Date();
+  const date = new Date();
+
+  element1.textContent = `Сегодня ${
+    week[date.getDay() - 1]
+  }, ${date.getDate()} ${
+    month[date.getMonth()]
+  } ${date.getFullYear()} года, ${date.getHours()} ${
+    getDateWord().hours
+  } ${date.getMinutes()} ${getDateWord().minutes} ${date.getSeconds()} ${
+    getDateWord().seconds
+  } `;
+
   element2.textContent = addZero(
-    `${date1.getDate()}.${
-      date1.getMonth() + 1
-    }.${date1.getFullYear()} - ${date1.getHours()}.${date1.getMinutes()}.${date1.getSeconds()}`
+    `${date.getDate()}.${
+      date.getMonth() + 1
+    }.${date.getFullYear()} - ${date.getHours()}.${date.getMinutes()}.${date.getSeconds()}`
   );
 }, 100);
